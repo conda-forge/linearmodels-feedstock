@@ -1,18 +1,18 @@
 {% set name = "linearmodels" %}
-{% set version = "4.17" %}
+{% set version = "4.19" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: 29f07c73be57b5356da41cad83ae53604b215b00cbf3e61347fe5d434cdcfae2
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: d4ef97c110a5996b6f3587b74ef396ce117bd06e436d04c4fe9f5e0167ad46c6
 
 build:
-  number: 1
-  skip: True  # [py2k]
-  script: "{{ PYTHON }} -m pip install . -vv"
+  number: 0
+  skip: true  # [py2k]
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
@@ -71,13 +71,13 @@ test:
     - linearmodels.typing
 
 about:
-  home: "http://github.com/bashtage/linearmodels"
+  home: http://github.com/bashtage/linearmodels
   license: NCSA
   license_family: OTHER
   license_file: LICENSE.md
-  summary: "Instrumental Variable and Linear Panel models for Python"
-  doc_url: "https://bashtage.github.io/linearmodels/"
-  dev_url: "http://github.com/bashtage/linearmodels"
+  summary: Instrumental Variable and Linear Panel models for Python
+  doc_url: https://bashtage.github.io/linearmodels/
+  dev_url: http://github.com/bashtage/linearmodels
 
 extra:
   recipe-maintainers:
