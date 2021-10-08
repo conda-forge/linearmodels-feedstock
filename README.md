@@ -9,7 +9,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/linearmodels-fe
 
 Summary: Instrumental Variable and Linear Panel models for Python
 
-Development: https://github.com/bashtage/linearmodel
+Development: https://github.com/bashtage/linearmodels
 
 Documentation: https://bashtage.github.io/linearmodels
 
