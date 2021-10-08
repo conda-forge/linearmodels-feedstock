@@ -35,6 +35,7 @@ requirements:
     - statsmodels >=0.11
   run:
     - python
+    - cython
     - mypy_extensions >=0.4
     - {{ pin_compatible('numpy') }}
     - pandas >=0.24
@@ -42,6 +43,7 @@ requirements:
     - property_cached >=1.6.3
     - scipy >=1.2
     - statsmodels >=0.11
+    - pyhdfe >=0.1
 
 test:
   requires:
