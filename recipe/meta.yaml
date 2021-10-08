@@ -22,27 +22,32 @@ requirements:
     - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]    
   host:
-    - cython >=0.29.14
-    - mypy_extensions >=0.4
+    - python
+    - pip
+    - cython
+    # Do not add any constraint on numpy here to use global pinning
     - numpy
+    - mypy_extensions >=0.4
     - pandas >=0.24
     - patsy
-    - pip >=10
     - property_cached >=1.6.3
-    - python
     - scipy >=1.2
     - statsmodels >=0.11
   run:
+    - python
     - mypy_extensions >=0.4
     - {{ pin_compatible('numpy') }}
     - pandas >=0.24
     - patsy
     - property_cached >=1.6.3
-    - python
     - scipy >=1.2
     - statsmodels >=0.11
 
 test:
+  requires:
+    - pip
+  commands:
+    - pip check
   imports:
     - linearmodels
     - linearmodels.asset_pricing
@@ -84,7 +89,7 @@ about:
     regression, instrumental variable estimators, system estimators and
     models for estimating asset prices.
   doc_url: https://bashtage.github.io/linearmodels
-  dev_url: https://github.com/bashtage/linearmodel
+  dev_url: https://github.com/bashtage/linearmodels
 
 extra:
   recipe-maintainers:
