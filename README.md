@@ -15,7 +15,7 @@ Documentation: https://bashtage.github.io/linearmodels
 
 Linear (regression) models for Python. Extends statsmodels with Panel
 regression, instrumental variable estimators, system estimators and
-models for estimating asset prices.
+models for estimating asset pricing models.
 
 
 Current build status
