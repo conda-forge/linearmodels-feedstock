@@ -10,36 +10,46 @@ source:
   sha256: 397bdfd45c0e8eb3a08674d192580a24eb55b23cded6f747151fbd32715fd887
 
 build:
-  number: 1
-  skip: true  # [py2k]
+  number: 2
+  skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]    
   host:
-    - cython >=0.29.14
-    - mypy_extensions >=0.4
-    - numpy >=1.15
-    - pandas >=0.23
-    - patsy
-    - pip >=10
-    - property_cached >=1.6.3
     - python
-    - scipy >=1
-    - statsmodels >=0.9
+    - pip
+    - cython
+    # Do not add any constraint on numpy here to use global pinning
+    - numpy
+    - mypy_extensions >=0.4
+    - pandas >=0.24
+    - patsy
+    - property_cached >=1.6.3
+    - scipy >=1.2
+    - statsmodels >=0.11
   run:
+    - python
+    - cython
     - mypy_extensions >=0.4
-    - numpy >=1.15
-    - pandas >=0.23
+    - {{ pin_compatible('numpy') }}
+    - pandas >=0.24
     - patsy
     - property_cached >=1.6.3
-    - python
-    - scipy >=1
-    - statsmodels >=0.9
+    - scipy >=1.2
+    - statsmodels >=0.11
+    - pyhdfe >=0.1
 
 test:
+  requires:
+    - pip
+  commands:
+    - pip check
   imports:
     - linearmodels
     - linearmodels.asset_pricing
@@ -76,9 +86,14 @@ about:
   license_family: OTHER
   license_file: LICENSE.md
   summary: Instrumental Variable and Linear Panel models for Python
-  doc_url: https://bashtage.github.io/linearmodels/
-  dev_url: http://github.com/bashtage/linearmodels
+  description: |
+    Linear (regression) models for Python. Extends statsmodels with Panel
+    regression, instrumental variable estimators, system estimators and
+    models for estimating asset pricing models.
+  doc_url: https://bashtage.github.io/linearmodels
+  dev_url: https://github.com/bashtage/linearmodels
 
 extra:
   recipe-maintainers:
     - khwilson
+    - bashtage
