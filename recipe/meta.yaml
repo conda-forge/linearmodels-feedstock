@@ -44,7 +44,7 @@ requirements:
     - scipy >=1.2
     - statsmodels >=0.11
     - pyhdfe >=0.1
-    - formulaic >= 0.2.4
+    - formulaic >=0.2.4
 test:
   requires:
     - pip
