@@ -38,6 +38,7 @@ requirements:
     - property_cached >=1.6.3
     - scipy >=1.2
     - statsmodels >=0.11
+    - formulaic >=0.3
 
   run:
     - python
