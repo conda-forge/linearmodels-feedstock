@@ -50,10 +50,6 @@ requirements:
     - formulaic >=0.3
     - setuptools-scm
 test:
-  requires:
-    - pip
-  commands:
-    - pip check
   imports:
     - linearmodels
     - linearmodels.asset_pricing
