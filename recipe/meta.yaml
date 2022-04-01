@@ -21,8 +21,6 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
-    - setuptools
-    - setuptools-scm
 
   host:
     - python
@@ -38,8 +36,6 @@ requirements:
     - property_cached >=1.6.3
     - scipy >=1.2
     - statsmodels >=0.11
-    - formulaic >=0.3
-
   run:
     - python
     - cython
