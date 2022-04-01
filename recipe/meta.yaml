@@ -1,5 +1,5 @@
 {% set name = "linearmodels" %}
-{% set version = "4.24" %}
+{% set version = "4.25" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 397bdfd45c0e8eb3a08674d192580a24eb55b23cded6f747151fbd32715fd887
+  sha256: a73e94195f486f74be6176809a515bb498b5371d8acb9e4ae6f0e59a7c28210a
 
 build:
-  number: 3
+  number: 0
   skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . -vv
 
@@ -44,7 +44,7 @@ requirements:
     - scipy >=1.2
     - statsmodels >=0.11
     - pyhdfe >=0.1
-
+    - formulaic >=0.2.4
 test:
   requires:
     - pip
