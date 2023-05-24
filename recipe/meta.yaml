@@ -1,5 +1,5 @@
 {% set name = "linearmodels" %}
-{% set version = "4.31" %}
+{% set version = "5.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 78a00ebd0360c2886357e8197faca174dc4521256a01e9f24114054bca676be9
+  sha256: 2642be561fedbd9351479f9c1587e02bb3ff4972954044e5353a9bcfa8d366a9
 
 build:
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -19,36 +19,27 @@ requirements:
     - {{ compiler('c') }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython                                 # [build_platform != target_platform]
+    - cython>=0.29.34                        # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
-
   host:
     - python
     - pip
     - setuptools
-    - setuptools-scm
-    - cython
+    - setuptools-scm>=7,<8
     # Do not add any constraint on numpy here to use global pinning
     - numpy
-    - mypy_extensions >=0.4
-    - pandas >=0.24
-    - patsy
-    - property_cached >=1.6.3
-    - scipy >=1.2
-    - statsmodels >=0.11
+    - pandas >=1.1
+    - scipy >=1.5
+    - statsmodels >=0.12
   run:
     - python
-    - cython
     - mypy_extensions >=0.4
     - {{ pin_compatible('numpy') }}
-    - pandas >=0.24
-    - patsy
-    - property_cached >=1.6.3
-    - scipy >=1.2
-    - statsmodels >=0.11
+    - pandas >=1.1
+    - scipy >=1.5
+    - statsmodels >=0.12
     - pyhdfe >=0.1
-    - formulaic >=0.3
-    - setuptools-scm
+    - formulaic >= 0.6.1
 test:
   imports:
     - linearmodels
