@@ -19,13 +19,13 @@ requirements:
     - {{ compiler('c') }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython>=0.29.34                        # [build_platform != target_platform]
+    - cython >=0.29.34                        # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
   host:
     - python
     - pip
     - setuptools
-    - setuptools-scm>=7,<8
+    - setuptools-scm >=7,<8
     # Do not add any constraint on numpy here to use global pinning
     - numpy
     - pandas >=1.1
@@ -39,7 +39,7 @@ requirements:
     - scipy >=1.5
     - statsmodels >=0.12
     - pyhdfe >=0.1
-    - formulaic >= 0.6.1
+    - formulaic >=0.6.1
 test:
   imports:
     - linearmodels
