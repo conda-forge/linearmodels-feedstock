@@ -1,5 +1,5 @@
 {% set name = "linearmodels" %}
-{% set version = "6.1" %}
+{% set version = "7.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 74ead48a054bc1b3ebec8e8d7187f17504058891b70c2e090372b4759eeb3e89
+  sha256: 15b50271068d8ad7ef58924fea6ca3fced055f8439f9e17d2ce62ba91c64ed24
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<39 or python_impl=='pypy']
   script: {{ PYTHON }} -m pip install . -vv
 
