@@ -1,5 +1,5 @@
 {% set name = "linearmodels" %}
-{% set version = "6.1" %}
+{% set version = "7.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,39 +7,50 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 74ead48a054bc1b3ebec8e8d7187f17504058891b70c2e090372b4759eeb3e89
+  sha256: 15b50271068d8ad7ef58924fea6ca3fced055f8439f9e17d2ce62ba91c64ed24
 
 build:
-  number: 1
-  skip: true  # [py<39 or python_impl=='pypy']
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  script:
+    - export PYTHONUNBUFFERED=1  # [ppc64le]
+    # Cross-compilation stuff vendored from numpy-feedstock
+    # necessary for cross-compilation to point to the right env
+    - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig                                    # [build_platform != target_platform]
+    - echo "python = '${PREFIX}/bin/python'" >> ${CONDA_PREFIX}/meson_cross_file.txt  # [build_platform != target_platform]
+    - MESON_ARGS_REDUCED="$(echo $MESON_ARGS | sed 's/--buildtype release //g')"  # [unix]
+    - {{ PYTHON }} -m pip install -vv --no-deps --ignore-installed . -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=}  # [unix]
+    - {{ PYTHON }} -m pip install -vv --no-deps --ignore-installed .  # [not unix]
+  skip: true  # [py<310 or python_impl == "pypy"]
 
 requirements:
   build:
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython >=0.29.34                       # [build_platform != target_platform]
+    - cython >=3.0.13                        # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
+    - meson-python                           # [build_platform != target_platform]
+    - ninja                                  # [build_platform != target_platform]
+    - {{ compiler('c') }}
+    - {{ stdlib('c') }}
   host:
     - python
     - pip
-    - setuptools
-    - cython >=0.29.34
-    # Do not add any constraint on numpy here to use global pinning
+    - cython >=3.0.13
     - numpy
-    - pandas >=1.1
-    - scipy >=1.5
-    - statsmodels >=0.12
+    - meson
+    - meson-python
+    - ninja
+    - setuptools
+    - setuptools_scm =9.2.0
   run:
     - python
+    - numpy
+    - scipy >=1.8
+    - pandas >=1.4
+    - statsmodels >=0.13
     - mypy_extensions >=0.4
-    - pandas >=1.1
-    - scipy >=1.5
-    - statsmodels >=0.12
     - pyhdfe >=0.1
-    - formulaic >=0.6.1
+    - formulaic >=1.2.1
 test:
   imports:
     - linearmodels
@@ -70,6 +81,15 @@ test:
     - linearmodels.tests.system
     - linearmodels.tests.system.results
     - linearmodels.typing
+  commands:
+    # do not run test suite in emulation because it takes a long time
+    - pip check
+    - python -c "import linearmodels; linearmodels.test(['-m', '(not slow)', '--numprocesses', '{{ CPU_COUNT }}'])"  # [(build_platform == target_platform) and (python_impl == "cpython")]
+  requires:
+    - pip
+    - pytest >=8.4.2
+    - pytest-xdist
+    - xarray
 
 about:
   home: http://github.com/bashtage/linearmodels
