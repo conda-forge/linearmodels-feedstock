@@ -6,11 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 15b50271068d8ad7ef58924fea6ca3fced055f8439f9e17d2ce62ba91c64ed24
 
 build:
-  number: 0
+  number: 1
   script:
     - export PYTHONUNBUFFERED=1  # [ppc64le]
     # Cross-compilation stuff vendored from numpy-feedstock
