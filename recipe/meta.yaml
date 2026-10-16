@@ -1,13 +1,13 @@
 {% set name = "linearmodels" %}
-{% set version = "7.0" %}
+{% set version = "7.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 15b50271068d8ad7ef58924fea6ca3fced055f8439f9e17d2ce62ba91c64ed24
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 870ed2be6aac0550e89abd38bc37b0353762ca8ef6247290b87baca08f37f2a8
 
 build:
   number: 0
