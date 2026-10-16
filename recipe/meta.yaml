@@ -10,7 +10,7 @@ source:
   sha256: 870ed2be6aac0550e89abd38bc37b0353762ca8ef6247290b87baca08f37f2a8
 
 build:
-  number: 0
+  number: 1
   script:
     - export PYTHONUNBUFFERED=1  # [ppc64le]
     # Cross-compilation stuff vendored from numpy-feedstock
