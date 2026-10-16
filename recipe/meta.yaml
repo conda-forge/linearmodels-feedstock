@@ -3,7 +3,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
@@ -84,9 +84,8 @@ test:
   commands:
     # do not run test suite in emulation because it takes a long time
     - pip check
-    # Skip  for now due to OSX crashes on edge cases
-    # python -c "import linearmodels; linearmodels.test(['-m', '(not slow)', '--numprocesses', '{{ CPU_COUNT }}'])"  
-    - python -c "import linearmodels" # [(build_platform == target_platform) and (python_impl == "cpython")]
+    # Skip  for now due to OSX crashes on edge cases, python -c "import linearmodels; linearmodels.test(['-m', '(not slow)', '--numprocesses', '{{ CPU_COUNT }}'])"  
+    - python -c "import linearmodels"  # [(build_platform == target_platform) and (python_impl == "cpython")]
     
   requires:
     - pip
